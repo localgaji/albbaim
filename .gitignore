@@ -28,4 +28,3 @@ yarn-error.log*
 /playwright-report/
 /playwright/
 /tests/tests-examples/
-/tests/logintest.ts
