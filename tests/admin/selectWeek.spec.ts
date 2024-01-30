@@ -21,12 +21,12 @@ test.describe('매니저 주차 선택', () => {
 test.beforeEach(async ({ page, baseURL }) => {
   await mockMapper({
     page,
-    url: `schedule/status*`,
+    url: `week/*`,
     method: 'GET',
     response: mockResponse(getWeekProgressClosed),
   });
 
-  await mockMapper({ page, url: 'schedule/fix/day*', method: 'GET', response: mockResponse(getDailyWorker) });
+  await mockMapper({ page, url: 'fixed/dailyWorkers/*', method: 'GET', response: mockResponse(getDailyWorker) });
 
   await page.goto(`${baseURL}/newSchedule`);
 });

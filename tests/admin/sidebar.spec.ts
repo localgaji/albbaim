@@ -4,7 +4,7 @@ import { getMyinfo, getMyinfoNoGroup } from '../mock/responseBody/getMyInfo';
 
 test.describe('사이드바', () => {
   test('사이드바 : 그룹 있음', async ({ page, baseURL }) => {
-    await mockMapper({ page: page, url: 'group', method: 'GET', response: mockResponse(getMyinfo) });
+    await mockMapper({ page: page, url: 'workplace', method: 'GET', response: mockResponse(getMyinfo) });
 
     await page.goto(`${baseURL}`);
     await page.getByLabel('메뉴').click();
@@ -13,7 +13,7 @@ test.describe('사이드바', () => {
   });
 
   test('사이드바 : 그룹 없음', async ({ page, baseURL }) => {
-    await mockMapper({ page: page, url: 'group', method: 'GET', response: mockResponse(getMyinfoNoGroup) });
+    await mockMapper({ page: page, url: 'workplace', method: 'GET', response: mockResponse(getMyinfoNoGroup) });
 
     await page.goto(`${baseURL}`);
     await page.getByLabel('메뉴').click();

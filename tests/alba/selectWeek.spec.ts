@@ -18,7 +18,7 @@ test.describe('알바 주차 선택', () => {
 test.beforeEach(async ({ page, baseURL }) => {
   await mockMapper({
     page,
-    url: `schedule/status*`,
+    url: `week/*`,
     method: 'GET',
     response: mockResponse(getWeekProgressInprogress),
   });

@@ -46,21 +46,21 @@ test.describe('알바 스케줄 신청', () => {
 test.beforeEach(async ({ page, baseURL }) => {
   await mockMapper({
     page,
-    url: `schedule/status*`,
+    url: `week/*`,
     method: 'GET',
     response: mockResponse(getWeekProgressInprogress),
   });
 
   await mockMapper({
     page,
-    url: `schedule/application*`,
+    url: `application/*`,
     method: 'GET',
     response: mockResponse(getApplyForm),
   });
 
   await mockMapper({
     page,
-    url: `schedule/application`,
+    url: `application/checklist/*`,
     method: 'PUT',
     response: mockResponse(null),
   });
