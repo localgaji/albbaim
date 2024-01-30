@@ -1,54 +1,33 @@
 import { useQuery } from '@tanstack/react-query';
-import { UserData } from 'apis/types';
-import { getMyInfo } from 'apis/userInfo';
-import { loginDatahandlers } from 'utils/loginDatahandlers';
+import { getMyInfo } from 'apis/auth';
+import { getMyWorkplace } from 'apis/workplace';
 
-const useGetMyInfo = () => {
+export const useGetMyInfo = () => {
   const { data: myInfo } = useQuery(['myInfo'], () => getMyInfo(), {
     suspense: true,
     refetchOnWindowFocus: false,
   });
 
   const userName = myInfo?.userName || '';
-  const groupName = myInfo?.groupName || null;
-  const members = myInfo?.members || [];
-  const userType = userTypeCheck(groupName, members);
+  const userType = myInfo?.userType || null;
 
   return {
     userType,
-    groupName: groupName,
-    userName: userName,
-    members: members,
+    userName,
   };
 };
 
-export default useGetMyInfo;
+export const useGetMyWorkplace = () => {
+  const { data: myInfo } = useQuery(['myWorkplace'], () => getMyWorkplace(), {
+    suspense: true,
+    refetchOnWindowFocus: false,
+  });
 
-export type UserType = 'NON_USER' | 'ADMIN_NO_GROUP' | 'ADMIN_NO_MEMBER' | 'ADMIN' | 'ALBA_NO_GROUP' | 'ALBA';
+  const workplaceName = myInfo?.workplaceName || null;
+  const members = myInfo?.members || [];
 
-const userTypeCheck = (groupName: string | null, members: UserData[]): UserType => {
-  const loginState = loginDatahandlers.getLoginData();
-
-  if (!loginState.isLogin) {
-    return 'NON_USER';
-  }
-
-  if (loginState.isAdmin) {
-    if (groupName === null) {
-      return 'ADMIN_NO_GROUP';
-    }
-    if (members.length === 1) {
-      return 'ADMIN_NO_MEMBER';
-    }
-    return 'ADMIN';
-  }
-
-  if (!loginState.isAdmin) {
-    if (groupName === null) {
-      return 'ALBA_NO_GROUP';
-    }
-    return 'ALBA';
-  }
-
-  throw { name: 'userTypeError' };
+  return {
+    workplaceName,
+    members,
+  };
 };
