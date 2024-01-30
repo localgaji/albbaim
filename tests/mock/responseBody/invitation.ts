@@ -1,5 +1,5 @@
 export const getGroupInfo = {
-  marketName: '라이언 월드',
+  workplaceName: '라이언 월드',
 };
 
 export const getGroupInfoError = {
