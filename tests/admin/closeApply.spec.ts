@@ -28,7 +28,7 @@ test.describe('스케줄 모집 마감', () => {
     await page.getByTestId('후보목록').last().click();
 
     // 스케줄 확정하기 버튼을 누르면 제출되고 메인으로 이동한다.
-    const check = new CheckRequest({ page, url: 'schedule/fix' });
+    const check = new CheckRequest({ page, url: 'fixed/*' });
     await check.requestBodyParser();
 
     await page.getByRole('button', { name: '스케줄 확정하기 (그룹원에게 알림이 가요!)' }).click();
@@ -42,14 +42,14 @@ test.describe('스케줄 모집 마감', () => {
 test.beforeEach(async ({ page, baseURL }) => {
   await mockMapper({
     page,
-    url: `schedule/status*`,
+    url: `week/*`,
     method: 'GET',
     response: mockResponse(getWeekProgressInprogress),
   });
 
   await mockMapper({
     page,
-    url: `schedule/recommend*`,
+    url: `application/recommend/*`,
     method: 'GET',
     response: mockResponse(getRecommends),
   });
@@ -63,7 +63,7 @@ test.beforeEach(async ({ page, baseURL }) => {
 
   await mockMapper({
     page,
-    url: `schedule/remain/week*`,
+    url: `application/*`,
     method: 'GET',
     response: mockResponse(getApplyStatus),
   });

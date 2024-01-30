@@ -6,21 +6,21 @@ test.describe('초대장', () => {
   test('접속', async ({ page, baseURL }) => {
     await mockMapper({
       page: page,
-      url: 'group/invitation/information*',
+      url: 'workplace/invitation/information*',
       method: 'GET',
       response: mockResponse(getGroupInfo),
     });
     await mockMapper({
       page: page,
-      url: 'group/invitation',
+      url: 'workplace/invitation',
       method: 'POST',
       response: mockResponse(null),
     });
 
     // 접속
     await page.goto(`${baseURL}/invited/123`);
-    const marketName = page.getByText('라이언 월드');
-    await expect(marketName).toBeVisible();
+    const workplaceName = page.getByText('라이언 월드');
+    await expect(workplaceName).toBeVisible();
 
     // 승인
     await page.getByRole('button', { name: '승인하기' }).click();
@@ -31,7 +31,7 @@ test.describe('초대장', () => {
   test('에러', async ({ page, baseURL }) => {
     await mockMapper({
       page: page,
-      url: 'group/invitation/information*',
+      url: 'workplace/invitation/information*',
       method: 'GET',
       response: mockResponse(getGroupInfoError, 400),
     });

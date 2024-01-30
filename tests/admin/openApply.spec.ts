@@ -55,7 +55,7 @@ test.describe('스케줄 모집 시작', () => {
     await amount.fill('10');
 
     // 스케줄 모집 시작하기 버튼을 누르면 제출되고 메인으로 이동한다.
-    const check = new CheckRequest({ page, url: 'schedule/worktime' });
+    const check = new CheckRequest({ page, url: 'worktime' });
     await check.requestBodyParser();
 
     const doneButton = page.getByRole('button', { name: '스케줄 모집 시작하기 (그룹원에게 알림이 가요!)' });
@@ -72,21 +72,21 @@ test.describe('스케줄 모집 시작', () => {
 test.beforeEach(async ({ page, baseURL }) => {
   await mockMapper({
     page,
-    url: `schedule/status*`,
+    url: `week/*`,
     method: 'GET',
     response: mockResponse(getWeekProgressAllocatable),
   });
 
   await mockMapper({
     page,
-    url: `schedule/worktime?*`,
+    url: `worktime/*`,
     method: 'GET',
     response: mockResponse(getTimeTemplate),
   });
 
   await mockMapper({
     page,
-    url: `schedule/worktime`,
+    url: `worktime/*`,
     method: 'POST',
     response: mockResponse(null),
   });

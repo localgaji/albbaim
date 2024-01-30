@@ -3,10 +3,10 @@ import { mockMapper, mockResponse } from '../mock/mockResponse';
 import { getMyinfoNoMember } from '../mock/responseBody/getMyInfo';
 
 test.beforeEach(async ({ page, baseURL }) => {
-  await mockMapper({ page: page, url: 'group', method: 'GET', response: mockResponse(getMyinfoNoMember) });
+  await mockMapper({ page: page, url: 'workplace', method: 'GET', response: mockResponse(getMyinfoNoMember) });
   await mockMapper({
     page: page,
-    url: 'group/invitation',
+    url: 'workplace/invitation',
     method: 'GET',
     response: mockResponse({ invitationKey: 'ABC' }),
   });
