@@ -1,3 +1,5 @@
+export type UserType = 'ADMIN' | 'ADMIN_NO_GROUP' | 'ALBA' | 'ALBA_NO_GROUP' | null;
+
 export interface TimeData {
   title: string;
   startTime: string;
@@ -23,7 +25,7 @@ export interface ApplyData {
 
 export interface UserData {
   userId: number;
-  name: string;
+  userName: string;
   isAdmin: boolean;
 }
 
@@ -43,8 +45,8 @@ export interface WeekStatusData {
 }
 
 export interface AddNeweGroupForm {
-  marketName: string;
-  marketNumber: string;
+  workplaceName: string;
+  workplaceNumber: string;
   mainAddress: string;
   detailAddress: string;
 }

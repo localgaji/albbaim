@@ -2,8 +2,8 @@ import instance from 'apis/instance';
 import { ApplyData, SelectedTimeData, TimeData, TimeWithIdData } from 'apis/types';
 import { strTimeProcessor } from 'utils/strTimeProcessor';
 
-export const getApplyForm = async (params: GetParams): Promise<GetReturn> => {
-  const response: GetResponse = await instance.get(`/schedule/application`, { params });
+export const getApplyForm = async (variables: GetRequest): Promise<GetReturn> => {
+  const response: GetResponse = await instance.get(`/application/checklist/${variables.startWeekDate}`);
 
   const templates: { [index: number]: TimeData } = {};
   for (let timeObj of response.template) {
@@ -23,7 +23,7 @@ export const getApplyForm = async (params: GetParams): Promise<GetReturn> => {
   return { selected };
 };
 
-interface GetParams {
+interface GetRequest {
   startWeekDate: string;
 }
 
@@ -36,8 +36,8 @@ interface GetReturn {
   selected: SelectedTimeData[][];
 }
 
-export const putApply = (body: PutRequest) => {
-  return instance.put(`/schedule/application`, body);
+export const postApply = (body: PutRequest) => {
+  return instance.post(`/application`, body);
 };
 
 interface PutRequest {

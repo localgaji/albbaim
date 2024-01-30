@@ -2,8 +2,8 @@ import instance from 'apis/instance';
 import { TimeData, TimeWithIdData, TimeWorkerListData, UserData } from 'apis/types';
 import { strTimeProcessor } from 'utils/strTimeProcessor';
 
-export const getApplyStatus = async (params: Params): Promise<Return> => {
-  const response: Response = await instance.get(`/schedule/remain/week`, { params });
+export const getApplyStatus = async (variables: Request): Promise<Return> => {
+  const response: Response = await instance.get(`/application/${variables.startWeekDate}`);
   const weeklyArray = response.applyStatus;
 
   const templates: { [index: number]: TimeData } = {};
@@ -24,7 +24,7 @@ export const getApplyStatus = async (params: Params): Promise<Return> => {
   return { applyStatus };
 };
 
-interface Params {
+interface Request {
   startWeekDate: string;
 }
 

@@ -2,8 +2,8 @@ import instance from 'apis/instance';
 import { TimeData } from 'apis/types';
 import { strTimeProcessor } from 'utils/strTimeProcessor';
 
-export const getTimeTemplate = async (params: GetParams): Promise<GetReturn> => {
-  const response: GetResponse = await instance.get(`/schedule/worktime`, { params });
+export const getTimeTemplate = async (params: GetRequest): Promise<GetReturn> => {
+  const response: GetResponse = await instance.get(`/workTime`, { params });
   const template = response.template.map((time: TimeData) => ({
     ...time,
     startTime: strTimeProcessor(time.startTime),
@@ -12,7 +12,7 @@ export const getTimeTemplate = async (params: GetParams): Promise<GetReturn> => 
   return { template };
 };
 
-interface GetParams {
+interface GetRequest {
   startWeekDate: string;
 }
 
@@ -37,7 +37,7 @@ export const postOpenApplication = (params: PostParams) => {
     template: newTemplate,
   };
 
-  return instance.post(`/schedule/worktime`, requestBody);
+  return instance.post(`/workTime`, requestBody);
 };
 
 interface PostParams {
