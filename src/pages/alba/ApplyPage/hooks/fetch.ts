@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getApplyForm, putApply } from 'apis/alba/apply';
+import { getApplyForm, postApply } from 'apis/alba/apply';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { weeklySelectAtom } from 'pages/alba/ApplyPage/states';
 import React from 'react';
@@ -35,7 +35,7 @@ export const usePutApplyForm = (startWeekDate: string, onSuccess: () => void) =>
   const apply = weeklySelect.map((daily) =>
     daily.map((time) => ({ isChecked: time.isChecked, workTimeId: time.workTimeId })),
   );
-  const { mutate } = useMutation(() => putApply({ weekStartDate: startWeekDate, apply: apply }), {
+  const { mutate } = useMutation(() => postApply({ weekStartDate: startWeekDate, apply: apply }), {
     onSuccess: onSuccess,
   });
 

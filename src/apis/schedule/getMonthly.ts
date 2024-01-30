@@ -8,21 +8,9 @@ export const getMonthly = async ({ year, month, userId }: Param): Promise<Return
   const strMonth = String(month + 1).padStart(2, '0');
   const isAdmin = loginDatahandlers.getLoginData().isAdmin;
 
-  let params = {};
-
-  if (isAdmin) {
-    params = {
-      month: `${year}-${strMonth}`,
-      userId: userId,
-    };
-  } else {
-    params = {
-      month: `${year}-${strMonth}`,
-    };
-  }
-
-  const response: Response = await instance.get(`/schedule/fix/month`, { params });
+  const response: Response = await instance.get(`/fixed/monthly/${year}/${strMonth}/${isAdmin ? userId : ''}`);
   const calendar = to2Dimension({ year, month, monthly: response.schedule });
+
   return { table: calendar.table, totalTime: response.work_summary, badgeColor: calendar.badgeColor };
 };
 

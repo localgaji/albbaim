@@ -1,8 +1,7 @@
-import React from 'react';
-import LoginOrSignup from 'components/LoginSignUpButton/LoginOrSignup';
 import FlexContainer from 'components/@commons/FlexContainer';
-import PageContainer from '../components/@commons/PageContainer';
 import LogoPicture from 'components/@commons/LogoPicture';
+import LoginOrSignup from 'components/LoginSignUpButton/LoginOrSignup';
+import PageContainer from '../components/@commons/PageContainer';
 
 const OnBoardingPage = (): JSX.Element => {
   return (

@@ -2,16 +2,16 @@ import instance from 'apis/instance';
 import { AddNeweGroupForm } from 'apis/types';
 
 export const postAddNewGroup = (body: AddNeweGroupForm) => {
-  const marketNumber = body.marketNumber.slice(0, 2) + '-' + body.marketNumber.slice(2);
-  return instance.post(`/group`, {
+  const workplaceNumber = body.workplaceNumber.slice(0, 2) + '-' + body.workplaceNumber.slice(2);
+  return instance.post(`/workplace`, {
     ...body,
-    marketNumber: marketNumber,
+    workplaceNumber: workplaceNumber,
   });
 };
 
 // 초대링크 발급
 export const getInviteKey = (): Promise<GetResponse> => {
-  return instance.get(`/group/invitation`);
+  return instance.get(`/workplace/invitation`);
 };
 
 interface GetResponse {

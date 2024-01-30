@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getGroupInfo, postGroupJoin } from 'apis/alba/joinGroup';
 
 export const useGetInvitation = (invitationKey: string) => {
-  const { data: marketData } = useQuery(
+  const { data: workplaceData } = useQuery(
     ['invitation', invitationKey],
     () => getGroupInfo({ invitationKey: invitationKey }),
     {
@@ -15,7 +15,7 @@ export const useGetInvitation = (invitationKey: string) => {
       },
     },
   );
-  return { marketData };
+  return { workplaceData };
 };
 
 export const usePostGroupJoin = (invitationKey: string, onSuccess: () => void) => {

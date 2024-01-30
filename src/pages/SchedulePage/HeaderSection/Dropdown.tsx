@@ -12,7 +12,7 @@ const Dropdown = ({ members }: { members: UserData[] }): JSX.Element => {
     <DropDownCont>
       <DropdownBtn onClick={dropdownOnClick}>
         <Text margin="0" size="sm">
-          {member.name || '선택'}
+          {member.userName || '선택'}
         </Text>
         {isOpen ? <DropUp /> : <DropDown />}
       </DropdownBtn>
@@ -25,11 +25,11 @@ const Dropdown = ({ members }: { members: UserData[] }): JSX.Element => {
                 as="li"
                 $wFull
                 $align="flex-start"
-                key={member.name + index}
+                key={member.userName + index}
                 onClick={() => contentOnClick(member)}
               >
                 <Text margin="0" size="sm">
-                  {member.name}
+                  {member.userName}
                 </Text>
               </FlexContainer>
             ))}

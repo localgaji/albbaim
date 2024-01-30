@@ -39,11 +39,7 @@ export const getWeekProgress = async ({ year, month }: { year: number; month: nu
 
     // 해당 주가 오늘 이후일 때 : 요청 보내기
     if (today < new Date(year, month, startWeekDate).getTime()) {
-      const params: Params = {
-        startWeekDate: dateToString(new Date(year, month, startWeekDate)),
-      };
-
-      const response: Response = await instance.get(`/schedule/status`, { params });
+      const response: Response = await instance.get(`/week/${dateToString(new Date(year, month, startWeekDate))}`);
       weekObject.weekStatus = response.weekStatus;
     }
 
@@ -52,10 +48,6 @@ export const getWeekProgress = async ({ year, month }: { year: number; month: nu
 
   return { table };
 };
-
-interface Params {
-  startWeekDate: string;
-}
 
 interface Return {
   table: WeekStatusData[];

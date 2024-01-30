@@ -1,7 +1,7 @@
 import { convertPath } from 'apis/convertURI';
 import PageContainer from 'components/@commons/PageContainer';
 import Loader from 'components/Suspenses/Loader';
-import useGetMyInfo from 'hooks/useGetMyInfo';
+import { useGetMyInfo } from 'hooks/useGetMyInfo';
 import React, { Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormSection from './FormSection';

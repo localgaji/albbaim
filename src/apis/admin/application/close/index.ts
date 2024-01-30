@@ -1,20 +1,20 @@
 import instance from 'apis/instance';
 import { TimeWorkerListData } from 'apis/types';
 
-export const postRecommends = (body: PostRequest) => {
-  return instance.post(`/schedule/fix`, body);
+export const postRecommends = (variables: PostRequest) => {
+  return instance.post(`/fixed/${variables.startWeekDate}/${variables.selection}`);
 };
 
 interface PostRequest {
-  weekStartDate: string;
+  startWeekDate: string;
   selection: number;
 }
 
-export const getRecommends = (params: GetParams): Promise<GetResponse> => {
-  return instance.get(`/schedule/recommend`, { params });
+export const getRecommends = (variables: GetRequest): Promise<GetResponse> => {
+  return instance.get(`/application/recommend/${variables.startWeekDate}`);
 };
 
-interface GetParams {
+interface GetRequest {
   startWeekDate: string;
 }
 

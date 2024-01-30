@@ -1,21 +1,14 @@
-import React from 'react';
-import { AdminNoGroupPage, AdminNoMemberPage } from 'pages/admin/ETCMainPage';
+import { useGetMyWorkplace } from 'hooks/useGetMyInfo';
 import SchedulePage from 'pages/SchedulePage';
-import useGetMyInfo from 'hooks/useGetMyInfo';
+import { AdminNoMemberPage } from 'pages/admin/ETCMainPage';
 
 const AdminMainIndex = (): JSX.Element => {
-  const { userType, members } = useGetMyInfo();
+  const { members } = useGetMyWorkplace();
 
-  switch (userType) {
-    case 'ADMIN_NO_GROUP':
-      return <AdminNoGroupPage />;
-    case 'ADMIN_NO_MEMBER':
-      return <AdminNoMemberPage />;
-    case 'ADMIN':
-      return <SchedulePage members={members} />;
-    default:
-      return <></>;
+  if (members.length > 1) {
+    return <SchedulePage isAdmin />;
   }
+  return <AdminNoMemberPage />;
 };
 
 export default AdminMainIndex;
