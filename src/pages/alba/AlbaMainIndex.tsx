@@ -1,25 +1,7 @@
-import React from 'react';
-import SchedulePage from 'pages/SchedulePage';
-import PageContainer from 'components/@commons/PageContainer';
-import GrayBox from 'components/@commons/GrayBox';
-import Text from 'components/@commons/Text';
 import FlexContainer from 'components/@commons/FlexContainer';
-import useGetMyInfo from 'hooks/useGetMyInfo';
-
-const AlbaMainIndex = (): JSX.Element => {
-  const { userType } = useGetMyInfo();
-
-  switch (userType) {
-    case 'ALBA_NO_GROUP':
-      return <AlbaNoGroupPage />;
-    case 'ALBA':
-      return <SchedulePage />;
-    default:
-      return <></>;
-  }
-};
-
-export default AlbaMainIndex;
+import GrayBox from 'components/@commons/GrayBox';
+import PageContainer from 'components/@commons/PageContainer';
+import Text from 'components/@commons/Text';
 
 export const AlbaNoGroupPage = (): JSX.Element => {
   return (

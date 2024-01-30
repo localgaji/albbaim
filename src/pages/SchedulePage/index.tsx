@@ -1,9 +1,9 @@
-import { UserData } from 'apis/types';
 import FlexContainer from 'components/@commons/FlexContainer';
 import PageContainer from 'components/@commons/PageContainer';
 import CalenderOutter, { MonthData } from 'components/Calendar/CalenderOutter';
 import Loader from 'components/Suspenses/Loader';
 import Skeleton from 'components/Suspenses/Skeleton';
+import { useGetMyWorkplace } from 'hooks/useGetMyInfo';
 import { useAtom, useAtomValue } from 'jotai';
 import EmptyCalendar from 'pages/SchedulePage/CalendarSection/EmptyCalendar';
 import ScheduleCalendar from 'pages/SchedulePage/CalendarSection/ScheduleCalendar';
@@ -11,12 +11,11 @@ import DailyWorkers from 'pages/SchedulePage/DailyWorkerSection/DailyWorkers';
 import Dropdown from 'pages/SchedulePage/HeaderSection/Dropdown';
 import TotalWorkTime from 'pages/SchedulePage/HeaderSection/TotalWorkTime';
 import { Suspense } from 'react';
-import { loginDatahandlers } from 'utils/loginDatahandlers';
 import { memberAtom, monthAtom } from './states';
 
-const SchedulePage = ({ members }: { members?: UserData[] }): JSX.Element => {
+const SchedulePage = ({ isAdmin }: { isAdmin: Boolean }): JSX.Element => {
+  const { members } = useGetMyWorkplace();
   const nowMember = useAtomValue(memberAtom);
-  const isAdmin = loginDatahandlers.getLoginData().isAdmin;
 
   return (
     <PageContainer justify="start" padding="0 20px" maxWidth="600px">
