@@ -14,7 +14,7 @@ const useClose = (startWeekDate: string) => {
   const navigate = useNavigate();
   const { mutate } = useMutation(
     ['postRecommends'],
-    () => postRecommends({ weekStartDate: startWeekDate, selection: candidate + 1 }),
+    () => postRecommends({ startWeekDate: startWeekDate, selection: candidate + 1 }),
     {
       onSuccess: () => {
         navigate(convertPath('/'));

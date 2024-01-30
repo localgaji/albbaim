@@ -20,8 +20,8 @@ export const DailyWorkersTable = ({ dailyData }: { dailyData: TimeWorkerListData
           </TitleBox>
           <FlexContainer as="ol" $gap="8px">
             {timeData.workerList.map((w: UserData, i) => (
-              <NameBox as="li" key={`${w.name}${i}`}>
-                <Text>{w.name}</Text>
+              <NameBox as="li" key={`${w.userName}${i}`}>
+                <Text>{w.userName}</Text>
               </NameBox>
             ))}
           </FlexContainer>

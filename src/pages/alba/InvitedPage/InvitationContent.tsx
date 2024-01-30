@@ -7,13 +7,13 @@ interface Props {
 }
 
 const InvitationContent = ({ invitationKey }: Props): JSX.Element => {
-  const { marketData } = useGetInvitation(invitationKey);
+  const { workplaceData } = useGetInvitation(invitationKey);
 
   return (
     <>
       <FlexContainer>
         <Text size="xxxl" weight="bold">
-          {marketData?.marketName}
+          {workplaceData?.workplaceName}
         </Text>
       </FlexContainer>
       <FlexContainer $wFull>

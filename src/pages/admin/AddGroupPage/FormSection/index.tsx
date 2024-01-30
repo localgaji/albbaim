@@ -2,11 +2,11 @@ import FlexContainer from 'components/@commons/FlexContainer';
 import SubmitButton from 'components/@commons/SubmitButton';
 import Text from 'components/@commons/Text';
 import useAddGroupForm from 'pages/admin/AddGroupPage/hooks/useAddGroupForm';
-import { marketNoValidator, nameValidator } from 'utils/validators';
+import { nameValidator, workplaceNoValidator } from 'utils/validators';
 import InputBar from './InputBar';
 
 const FormSection = (): JSX.Element => {
-  const { marketInfo, formHandler, selectAddress, addGroupValidator, addGroupSubmit } = useAddGroupForm();
+  const { workplaceInfo, formHandler, selectAddress, addGroupValidator, addGroupSubmit } = useAddGroupForm();
 
   return (
     <>
@@ -16,24 +16,24 @@ const FormSection = (): JSX.Element => {
 
       <FlexContainer $gap="20px" $wFull>
         <InputBar
-          id="marketName"
+          id="workplaceName"
           onChange={formHandler}
           labelName="상호명"
-          validation={nameValidator(marketInfo.marketName)}
+          validation={nameValidator(workplaceInfo.workplaceName)}
         />
         <InputBar
-          id="marketNumber"
+          id="workplaceNumber"
           onChange={formHandler}
           labelName="사업자 번호"
-          validation={marketNoValidator(marketInfo.marketNumber)}
+          validation={workplaceNoValidator(workplaceInfo.workplaceNumber)}
           inputType="number"
         />
         <InputBar
           id="mainAddress"
           labelName="주소"
-          validation={marketInfo.mainAddress.length > 0}
+          validation={workplaceInfo.mainAddress.length > 0}
           onClick={selectAddress}
-          value={marketInfo.mainAddress}
+          value={workplaceInfo.mainAddress}
           readOnly
         />
 

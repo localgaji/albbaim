@@ -5,11 +5,10 @@ import useForm from 'hooks/useForm';
 import useModal from 'hooks/useModal';
 import usePopUpPage from 'hooks/usePopUpPage';
 import AddGroupDonePopUp from 'pages/admin/AddGroupPage/AddGroupDonePopUp';
-import React from 'react';
-import { marketNoValidator, nameValidator } from 'utils/validators';
+import { nameValidator, workplaceNoValidator } from 'utils/validators';
 
 const useAddGroupForm = () => {
-  const { obj: marketInfo, formHandler, etcUpdateHandler } = useForm(initialInfo);
+  const { obj: workplaceInfo, formHandler, etcUpdateHandler } = useForm(initialInfo);
 
   const { modalOnHandler, modalOffHandler } = useModal();
   const selectAddress = () => {
@@ -25,28 +24,28 @@ const useAddGroupForm = () => {
 
   const addGroupValidator = () => {
     return (
-      nameValidator(marketInfo.marketName) &&
-      marketNoValidator(marketInfo.marketNumber) &&
-      marketInfo.mainAddress.length > 0
+      nameValidator(workplaceInfo.workplaceName) &&
+      workplaceNoValidator(workplaceInfo.workplaceNumber) &&
+      workplaceInfo.mainAddress.length > 0
     );
   };
 
   const { popUpOnHandler } = usePopUpPage();
-  const { mutate } = useMutation(['postAddNewGroup'], () => postAddNewGroup(marketInfo), {
+  const { mutate } = useMutation(['postAddNewGroup'], () => postAddNewGroup(workplaceInfo), {
     onSuccess: () => popUpOnHandler(<AddGroupDonePopUp />),
   });
   const addGroupSubmit = (): void => {
     mutate();
   };
 
-  return { marketInfo, formHandler, selectAddress, addGroupValidator, addGroupSubmit };
+  return { workplaceInfo, formHandler, selectAddress, addGroupValidator, addGroupSubmit };
 };
 
 export default useAddGroupForm;
 
 const initialInfo = {
-  marketName: '',
-  marketNumber: '',
+  workplaceName: '',
+  workplaceNumber: '',
   mainAddress: '',
   detailAddress: '',
 };
