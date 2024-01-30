@@ -13,7 +13,7 @@ export const nameValidator = (string: string) => {
   return string.at(-1) !== ' ' && regex.test(string);
 };
 
-export const marketNoValidator = (string: string) => {
+export const workplaceNoValidator = (string: string) => {
   const regex = /^[0-9]{10}$/;
   return regex.test(string);
 };
