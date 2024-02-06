@@ -1,5 +1,5 @@
-import { WeekStatusTypes } from 'apis/types';
 import styled from 'styled-components';
+import { WeekStatusTypes } from 'types/schedule';
 
 export const BorderWeekBox = styled.div`
   position: absolute;
