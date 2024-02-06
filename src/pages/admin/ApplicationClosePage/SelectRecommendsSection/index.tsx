@@ -1,45 +1,20 @@
 import BorderBox from 'components/@commons/BorderBox';
-import ColorBox from 'components/@commons/ColorBox';
 import FlexContainer from 'components/@commons/FlexContainer';
 import SubmitButton from 'components/@commons/SubmitButton';
 import Text from 'components/@commons/Text';
 import { DailyWorkersTable } from 'components/DailyWorkersTable';
 import useWeekSelector from 'hooks/useWeekSelector';
-import NoApplicant from 'pages/admin/ApplicationClosePage/SelectRecommendsSection/NoApplicant';
 import { useGetRecommends } from 'pages/admin/ApplicationClosePage/hooks/fetch';
 import useClose from 'pages/admin/ApplicationClosePage/hooks/useClose';
-import { ScrollContainer } from 'pages/admin/ApplicationClosePage/styles';
-import { myTheme } from 'styles/myTheme';
 import { stringDateMoveKor } from 'utils/dateToString';
 
 const SelectRecommendsSection = ({ startWeekDate }: { startWeekDate: string }): JSX.Element => {
   const { recommendsRes } = useGetRecommends(startWeekDate);
-  const { setCandidate, candidate, submitHandler } = useClose(startWeekDate);
+  const { submitHandler } = useClose(startWeekDate);
   const { day, WeekBarComponent } = useWeekSelector(0);
-
-  if (recommendsRes?.recommends.length === 0) {
-    return <NoApplicant />;
-  }
 
   return (
     <>
-      <ScrollContainer as="ol" data-testid="후보목록">
-        {recommendsRes?.recommends.map((e, candidateIndex: number) => (
-          <FlexContainer
-            $shrink="0"
-            $width="32%"
-            as="li"
-            key={`후보${candidateIndex}`}
-            onClick={() => setCandidate(candidateIndex)}
-          >
-            <BorderBox width="100%" border={candidateIndex === candidate} borderColor={myTheme.color.yellow}>
-              <ColorBox $wFull $background={myTheme.color.lightGray}>
-                <Text margin="30px 20px">후보{candidateIndex + 1}</Text>
-              </ColorBox>
-            </BorderBox>
-          </FlexContainer>
-        ))}
-      </ScrollContainer>
       <WeekBarComponent />
 
       <BorderBox width="100%" border>
@@ -50,7 +25,7 @@ const SelectRecommendsSection = ({ startWeekDate }: { startWeekDate: string }): 
         </FlexContainer>
       </BorderBox>
 
-      <DailyWorkersTable dailyData={recommendsRes?.recommends[candidate][day]} />
+      <DailyWorkersTable dailyData={recommendsRes?.recommends[day]} />
       <SubmitButton onClick={submitHandler}>스케줄 확정하기 (그룹원에게 알림이 가요!)</SubmitButton>
     </>
   );
