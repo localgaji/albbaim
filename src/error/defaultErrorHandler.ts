@@ -1,6 +1,6 @@
 import { convertPath } from 'apis/convertURI';
-import { ErrorData } from 'apis/types';
 import { stringErrorCode } from 'error/errorCode';
+import { ErrorData } from 'error/type';
 import { loginDatahandlers } from 'utils/loginDatahandlers';
 
 const redirect = (url: string) => {
@@ -8,8 +8,6 @@ const redirect = (url: string) => {
 };
 
 export const defaultErrorHandler = (error: ErrorData) => {
-  console.log('defaultErrorHandler', error);
-
   if (error.response === undefined) {
     alert('서버 오류');
     loginDatahandlers.removeLoginData();
