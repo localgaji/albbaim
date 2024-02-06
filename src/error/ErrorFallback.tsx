@@ -1,6 +1,6 @@
 import { convertPath } from 'apis/convertURI';
-import { ErrorFallbackProps } from 'apis/types';
 import { stringErrorCode } from 'error/errorCode';
+import { ErrorFallbackProps } from 'error/type';
 import { useNavigate } from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 
