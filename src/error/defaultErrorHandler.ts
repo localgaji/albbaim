@@ -1,7 +1,6 @@
 import { convertPath } from 'apis/convertURI';
 import { stringErrorCode } from 'error/errorCode';
 import { ErrorData } from 'error/type';
-import { loginDatahandlers } from 'utils/loginDatahandlers';
 
 const redirect = (url: string) => {
   window.location.href = url;
@@ -10,7 +9,7 @@ const redirect = (url: string) => {
 export const defaultErrorHandler = (error: ErrorData) => {
   if (error.response === undefined) {
     alert('서버 오류');
-    loginDatahandlers.removeLoginData();
+    // loginDatahandlers.removeLoginData();
     return;
   }
 
@@ -56,8 +55,8 @@ export const defaultErrorHandler = (error: ErrorData) => {
     default:
       // 처리 불가능 에러
       alert('서버 오류');
-      loginDatahandlers.removeLoginData();
-      redirect(convertPath('/'));
+      // loginDatahandlers.removeLoginData();
+      // redirect(convertPath('/'));
       return;
   }
 };
