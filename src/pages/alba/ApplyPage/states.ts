@@ -1,5 +1,5 @@
-import { SelectedTimeData } from 'apis/types';
 import { atom } from 'jotai';
+import { WorkTimeApplyCheck } from 'types/schedule';
 import weekdayArray from 'utils/weekdayArray';
 
-export const weeklySelectAtom = atom<SelectedTimeData[][]>(weekdayArray.map(() => []));
+export const weeklySelectAtom = atom<WorkTimeApplyCheck[][]>(weekdayArray.map(() => []));

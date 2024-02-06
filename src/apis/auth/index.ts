@@ -1,5 +1,5 @@
 import instance from 'apis/instance';
-import { UserType } from 'apis/types';
+import { UserType } from 'types/user';
 
 export const postsignup = (userInfo: SignupRequest): Promise<LoginResponse> => {
   return instance.post(`/auth/signUp/kakao`, userInfo);
@@ -23,6 +23,7 @@ interface LoginResponse {
   token: string;
   isAdmin: boolean;
 }
+
 export const getMyInfo = (): Promise<GetMyInfoResponse> => {
   return instance.get(`/user`);
 };
