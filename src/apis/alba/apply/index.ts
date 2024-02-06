@@ -1,26 +1,8 @@
 import instance from 'apis/instance';
-import { ApplyData, SelectedTimeData, TimeData, TimeWithIdData } from 'apis/types';
-import { strTimeProcessor } from 'utils/strTimeProcessor';
+import { WorkTimeApplyCheck, WorkTimeIdAndChecked } from 'types/schedule';
 
-export const getApplyForm = async (variables: GetRequest): Promise<GetReturn> => {
-  const response: GetResponse = await instance.get(`/application/checklist/${variables.startWeekDate}`);
-
-  const templates: { [index: number]: TimeData } = {};
-  for (let timeObj of response.template) {
-    templates[timeObj.workTimeId] = {
-      title: timeObj.title,
-      startTime: strTimeProcessor(timeObj.startTime),
-      endTime: strTimeProcessor(timeObj.endTime),
-    };
-  }
-
-  const selected = response.selected.map((dailyArray) => {
-    return dailyArray.map((workersObj) => {
-      return { ...templates[workersObj.workTimeId], ...workersObj };
-    });
-  });
-
-  return { selected };
+export const getApplyForm = (variables: GetRequest): Promise<GetResponse> => {
+  return instance.get(`/application/checklist/${variables.startWeekDate}`);
 };
 
 interface GetRequest {
@@ -28,19 +10,14 @@ interface GetRequest {
 }
 
 interface GetResponse {
-  template: TimeWithIdData[];
-  selected: ApplyData[][];
+  checklist: WorkTimeApplyCheck[][];
 }
 
-interface GetReturn {
-  selected: SelectedTimeData[][];
-}
-
-export const postApply = (body: PutRequest) => {
+export const postApply = (body: PostRequest) => {
   return instance.post(`/application`, body);
 };
 
-interface PutRequest {
-  weekStartDate: string;
-  apply: ApplyData[][];
+interface PostRequest {
+  startWeekDate: string;
+  apply: WorkTimeIdAndChecked[][];
 }

@@ -24,7 +24,7 @@ export const useGetApplyForm = (startWeekDate: string) => {
 
   React.useEffect(() => {
     if (data === undefined) return;
-    setWeeklySelect(data.selected);
+    setWeeklySelect(data.checklist);
   }, [data]);
 
   return { data };
@@ -35,7 +35,7 @@ export const usePutApplyForm = (startWeekDate: string, onSuccess: () => void) =>
   const apply = weeklySelect.map((daily) =>
     daily.map((time) => ({ isChecked: time.isChecked, workTimeId: time.workTimeId })),
   );
-  const { mutate } = useMutation(() => postApply({ weekStartDate: startWeekDate, apply: apply }), {
+  const { mutate } = useMutation(() => postApply({ startWeekDate: startWeekDate, apply: apply }), {
     onSuccess: onSuccess,
   });
 
