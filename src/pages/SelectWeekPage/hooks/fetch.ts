@@ -22,7 +22,7 @@ export const useGetApplyStatus = () => {
   const startWeekDate = useAtomValue(selectedWeekAtom).startWeekDate;
   const { data: applicantsStatusRes } = useQuery(
     ['getApplyStatus', startWeekDate],
-    () => getApplyStatus({ params: { startWeekDate: startWeekDate } }),
+    () => getApplyStatus({ startWeekDate: startWeekDate }),
     { suspense: true },
   );
   return { applicantsStatusRes };
