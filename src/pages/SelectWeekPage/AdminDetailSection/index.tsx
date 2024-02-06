@@ -57,9 +57,9 @@ const InProgressDetail = (): JSX.Element => {
 const ClosedDetail = (): JSX.Element => {
   const { day, WeekBarComponent } = useWeekSelector(0);
   const startWeekDate = useAtomValue(selectedWeekAtom).startWeekDate;
-  const { scheduleRes, isNotFixed } = useGetDailyWorkers(stringDateMove(startWeekDate, day));
+  const { scheduleRes, hasFixed } = useGetDailyWorkers(stringDateMove(startWeekDate, day));
 
-  if (isNotFixed) {
+  if (!hasFixed) {
     return <Text>스케줄 정보 없음</Text>;
   }
   return (

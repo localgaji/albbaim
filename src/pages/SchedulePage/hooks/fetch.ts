@@ -47,6 +47,6 @@ export const useGetDailyWorkers = (selectedDate: string, enabled?: boolean) => {
       enabled: enabled,
     },
   );
-  const isNotFixed = scheduleRes === null;
-  return { scheduleRes, isNotFixed };
+  const hasFixed = scheduleRes !== null;
+  return { scheduleRes, hasFixed };
 };
