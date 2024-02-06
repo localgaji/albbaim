@@ -1,12 +1,8 @@
 import instance from 'apis/instance';
-import { AddNeweGroupForm } from 'apis/types';
+import { AddNeweGroupForm } from 'types/workplace';
 
 export const postAddNewGroup = (body: AddNeweGroupForm) => {
-  const workplaceNumber = body.workplaceNumber.slice(0, 2) + '-' + body.workplaceNumber.slice(2);
-  return instance.post(`/workplace`, {
-    ...body,
-    workplaceNumber: workplaceNumber,
-  });
+  return instance.post(`/workplace`, body);
 };
 
 // 초대링크 발급
