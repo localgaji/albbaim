@@ -1,4 +1,3 @@
-import { TimeData } from 'apis/types';
 import ColorBox from 'components/@commons/ColorBox';
 import FlexContainer from 'components/@commons/FlexContainer';
 import SubmitButton from 'components/@commons/SubmitButton';
@@ -9,11 +8,12 @@ import { useGetOpenTemplate } from 'pages/admin/ApplicationOpenPage/hooks/fetch'
 import useTimeTemplate from 'pages/admin/ApplicationOpenPage/hooks/useTimeTemplate';
 import { Suspense } from 'react';
 import { myTheme } from 'styles/myTheme';
+import { WorkTime } from 'types/schedule';
 import { stringDateMoveKor } from 'utils/dateToString';
 import { OpenTimeInputs } from './EditTimeForm';
 
 const SetTimeTemplateSection = ({ startWeekDate }: { startWeekDate: string }): JSX.Element => {
-  const { timeTemplate, updateTimeHandler, deleteHandler, addHandler, goNextHandler } = useTimeTemplate();
+  const { workTime, updateWorkTimeHandler, deleteHandler, addHandler, goNextHandler } = useTimeTemplate();
   return (
     <>
       <Text size="xl">
@@ -24,13 +24,13 @@ const SetTimeTemplateSection = ({ startWeekDate }: { startWeekDate: string }): J
       <FlexContainer as="ol" $wFull $align="center" $gap="30px">
         <Suspense fallback={<SetTimeTemplateSkeleton />}>
           <FetchGetOpen startWeekDate={startWeekDate}>
-            {timeTemplate.map((time: TimeData, timeIndex: number) => (
+            {workTime[0]?.map((time: WorkTime, timeIndex: number) => (
               <ColorBox as="li" $wFull key={`${time.title}${timeIndex}`} $background={myTheme.color.lightYellow}>
                 <FlexContainer $wFull $padding="20px">
                   <OpenTimeInputs
                     timeData={time}
                     timeIndex={timeIndex}
-                    updater={updateTimeHandler}
+                    updater={updateWorkTimeHandler}
                     deleteHandler={deleteHandler}
                     key={`${time.title}${timeIndex}`}
                   />

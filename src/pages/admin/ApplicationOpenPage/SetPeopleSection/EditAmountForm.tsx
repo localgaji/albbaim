@@ -8,8 +8,8 @@ const EditAmountForm = ({ timeIndex, day }: { timeIndex: number; day: number }):
     <InputPeople
       type="number"
       min="0"
-      id={`${timeIndex}`}
-      value={val[`${timeIndex}`]}
+      id="headCount"
+      value={val.headCount}
       onChange={onChangeHandler}
       onBlur={onBlurHandler}
     />
