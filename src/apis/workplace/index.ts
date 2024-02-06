@@ -1,11 +1,11 @@
 import instance from 'apis/instance';
-import { UserData } from 'apis/types';
+import { Worker } from 'types/schedule';
 
-export const getMyWorkplace = (): Promise<GetMyGroupResponse> => {
+export const getMyWorkplace = (): Promise<GetResponse> => {
   return instance.get(`/workplace`);
 };
 
-interface GetMyGroupResponse {
+interface GetResponse {
   workplaceName: string;
-  members: UserData[];
+  members: Worker[];
 }
