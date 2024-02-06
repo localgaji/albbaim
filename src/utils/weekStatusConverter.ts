@@ -1,4 +1,4 @@
-import { WeekStatusTypes } from 'apis/types';
+import { WeekStatusTypes } from 'types/schedule';
 
 export const weekStatusConverter = (weekStatus: WeekStatusTypes) => {
   switch (weekStatus) {
