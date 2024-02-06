@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 
 export const addGroup = async ({ page, baseURL }) => {
   // 1. 접속
-  await page.goto(`${baseURL}/workplace`);
+  await page.goto(`${baseURL}/addGroup`);
   await expect(page.getByText('매장 등록하기')).toBeVisible();
 
   const workplaceName = page.getByLabel('상호명');
