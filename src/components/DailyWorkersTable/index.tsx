@@ -1,14 +1,14 @@
-import { TimeWorkerListData, UserData } from 'apis/types';
 import FlexContainer from 'components/@commons/FlexContainer';
 import GrayBox from 'components/@commons/GrayBox';
 import Text from 'components/@commons/Text';
+import { WorkTimeWorkerList, Worker } from 'types/schedule';
 import { strTimeProcessor } from 'utils/strTimeProcessor';
 import { NameBox, TitleBox } from './styles';
 
-export const DailyWorkersTable = ({ dailyData }: { dailyData: TimeWorkerListData[] | undefined }): JSX.Element => {
+export const DailyWorkersTable = ({ dailyData }: { dailyData: WorkTimeWorkerList[] | undefined }): JSX.Element => {
   return (
     <FlexContainer $wFull $direction="row" $align="start" $gap="3%" data-testid="일간근무표">
-      {dailyData?.map((timeData: TimeWorkerListData, timeindex) => (
+      {dailyData?.map((timeData: WorkTimeWorkerList, timeindex) => (
         <FlexContainer key={`${timeData.title}${timeindex}`} $wFull $gap="10px">
           <TitleBox $timeIndex={timeindex}>
             <Text block size="lg" weight="semiBold">
@@ -19,7 +19,7 @@ export const DailyWorkersTable = ({ dailyData }: { dailyData: TimeWorkerListData
             </Text>
           </TitleBox>
           <FlexContainer as="ol" $gap="8px">
-            {timeData.workerList.map((w: UserData, i) => (
+            {timeData.workerList.map((w: Worker, i) => (
               <NameBox as="li" key={`${w.userName}${i}`}>
                 <Text>{w.userName}</Text>
               </NameBox>

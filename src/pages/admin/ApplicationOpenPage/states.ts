@@ -1,6 +1,5 @@
-import { TimeData } from 'apis/types';
 import { atom } from 'jotai';
+import { WorkTimeHeadCount } from 'types/schedule';
 
-export const timeTemplateAtom = atom<TimeData[]>([]);
-export const weeklyPeopleAtom = atom<number[][]>([new Array(7).fill([])]);
+export const weeklyWorkTimeAtom = atom<WorkTimeHeadCount[][]>([]);
 export const openStepAtom = atom<'setTime' | 'setAmount'>('setTime');

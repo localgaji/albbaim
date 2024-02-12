@@ -1,7 +1,7 @@
-import { UserData } from 'apis/types';
 import { useAtom } from 'jotai';
 import { memberAtom } from 'pages/SchedulePage/states';
 import { useState } from 'react';
+import { Worker } from 'types/schedule';
 
 export const useSelectMember = () => {
   const [member, setMember] = useAtom(memberAtom);
@@ -12,7 +12,7 @@ export const useSelectMember = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const contentOnClick = (userinfo: UserData) => {
+  const contentOnClick = (userinfo: Worker) => {
     setMember({ ...userinfo });
     setIsOpen(false);
   };

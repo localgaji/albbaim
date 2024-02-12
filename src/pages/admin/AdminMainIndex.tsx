@@ -6,7 +6,7 @@ const AdminMainIndex = (): JSX.Element => {
   const { members } = useGetMyWorkplace();
 
   if (members.length > 1) {
-    return <SchedulePage isAdmin />;
+    return <SchedulePage />;
   }
   return <AdminNoMemberPage />;
 };

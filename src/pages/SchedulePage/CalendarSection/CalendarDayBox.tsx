@@ -1,23 +1,23 @@
 import Text from 'components/@commons/Text';
 import { BorderDayBox, DateCircle, OutterDayBox } from 'components/Calendar/CalendarStyle';
 import React from 'react';
+import { DailySchedule } from 'types/schedule';
 import { stringDateIsToday } from 'utils/dateToString';
 
 interface Props {
-  dateString: string;
-  timeList: string[] | null;
+  dailyData: DailySchedule;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   isSelected: boolean;
   children?: React.ReactNode;
 }
 
-const CalendarDayBox = ({ dateString, timeList, onClick, isSelected, children }: Props): JSX.Element => {
+const CalendarDayBox = ({ dailyData, onClick, isSelected, children }: Props): JSX.Element => {
   return (
-    <OutterDayBox onClick={onClick} $disabled={timeList === null}>
+    <OutterDayBox onClick={onClick} $disabled={!dailyData.hasFixed}>
       {isSelected && <BorderDayBox />}
-      <DateCircle $isToday={stringDateIsToday(dateString)}>
+      <DateCircle $isToday={stringDateIsToday(dailyData.date)}>
         <Text size="xs" weight="regular">
-          {dateString.split('-')[2]}
+          {dailyData.date.split('-')[2]}
         </Text>
       </DateCircle>
       {children}

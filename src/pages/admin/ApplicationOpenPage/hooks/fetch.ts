@@ -3,14 +3,12 @@ import { getTimeTemplate, postOpenApplication } from 'apis/admin/application/ope
 import { convertPath } from 'apis/convertURI';
 import { useAtomValue, useSetAtom } from 'jotai';
 import useTimeTemplate from 'pages/admin/ApplicationOpenPage/hooks/useTimeTemplate';
-import { timeTemplateAtom, weeklyPeopleAtom } from 'pages/admin/ApplicationOpenPage/states';
+import { weeklyWorkTimeAtom } from 'pages/admin/ApplicationOpenPage/states';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import weekdayArray from 'utils/weekdayArray';
 
 export const usePostOpenApplication = (startWeekDate: string) => {
-  const weeklyAmount = useAtomValue(weeklyPeopleAtom);
-  const timeTemplate = useAtomValue(timeTemplateAtom);
+  const workTime = useAtomValue(weeklyWorkTimeAtom);
 
   const { initializeOpenData } = useTimeTemplate();
   const navigate = useNavigate();
@@ -19,9 +17,8 @@ export const usePostOpenApplication = (startWeekDate: string) => {
     ['postOpenApplication', startWeekDate],
     () =>
       postOpenApplication({
-        weeklyAmount: weeklyAmount,
-        timeTemplate: timeTemplate,
         startWeekDate: startWeekDate,
+        template: workTime,
       }),
     {
       onSuccess: () => {
@@ -36,24 +33,19 @@ export const usePostOpenApplication = (startWeekDate: string) => {
 };
 
 export const useGetOpenTemplate = (startWeekDate: string) => {
-  const setTimeTemplate = useSetAtom(timeTemplateAtom);
-  const setWeeklyData = useSetAtom(weeklyPeopleAtom);
+  const setWorkTime = useSetAtom(weeklyWorkTimeAtom);
 
-  const { data: timeTemplateRes } = useQuery(
-    ['getTimeTemplate', startWeekDate],
-    () => getTimeTemplate({ startWeekDate: startWeekDate }),
-    {
-      suspense: true,
-      staleTime: 3600 * 1000,
-      cacheTime: 3600 * 1000,
-      refetchOnMount: false,
-    },
-  );
+  const { data: timeTemplateRes } = useQuery(['getTimeTemplate', startWeekDate], () => getTimeTemplate(), {
+    suspense: true,
+    staleTime: 3600 * 1000,
+    cacheTime: 3600 * 1000,
+    refetchOnMount: false,
+  });
 
   useEffect(() => {
     if (timeTemplateRes === undefined) return;
-    setTimeTemplate(timeTemplateRes.template);
-    setWeeklyData(weekdayArray.map(() => timeTemplateRes.template.map(() => 0)));
+
+    setWorkTime(timeTemplateRes.template);
   }, [timeTemplateRes]);
 
   return { timeTemplateRes };

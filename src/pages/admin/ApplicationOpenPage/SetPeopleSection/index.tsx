@@ -5,13 +5,13 @@ import Text from 'components/@commons/Text';
 import useWeekSelector from 'hooks/useWeekSelector';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { usePostOpenApplication } from 'pages/admin/ApplicationOpenPage/hooks/fetch';
-import { openStepAtom, timeTemplateAtom } from '../states';
+import { openStepAtom, weeklyWorkTimeAtom } from '../states';
 import EditAmountForm from './EditAmountForm';
 
 const SetPeopleSection = ({ startWeekDate }: { startWeekDate: string }): JSX.Element => {
   const { day, WeekBarComponent } = useWeekSelector(0);
   const { submitOpenhandler } = usePostOpenApplication(startWeekDate);
-  const timeTemplate = useAtomValue(timeTemplateAtom);
+  const workTime = useAtomValue(weeklyWorkTimeAtom);
   const setStep = useSetAtom(openStepAtom);
 
   return (
@@ -19,7 +19,7 @@ const SetPeopleSection = ({ startWeekDate }: { startWeekDate: string }): JSX.Ele
       <button onClick={() => setStep('setTime')}>시간대 수정하기</button>
       <WeekBarComponent />
       <FlexContainer as="ol" $wFull>
-        {timeTemplate.map((timeData, timeIndex) => (
+        {workTime[day].map((timeData, timeIndex) => (
           <BorderBox as="li" gradation key={`${day}${timeIndex}`}>
             <FlexContainer $wFull $direction="row" $padding="32px 60px" $align="center">
               <Text size="xl" margin="0">

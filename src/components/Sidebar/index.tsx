@@ -1,10 +1,11 @@
-import { UserData, UserType } from 'apis/types';
 import Loader from 'components/Suspenses/Loader';
 import GetInviteKeyModal from 'components/modals/GetInviteKeyModal';
 import { useGetMyInfo, useGetMyWorkplace } from 'hooks/useGetMyInfo';
 import useModal from 'hooks/useModal';
 import useLogin from 'pages/auth/hooks/useLogin';
 import { Suspense } from 'react';
+import { Worker } from 'types/schedule';
+import { UserType } from 'types/user';
 import FlexContainer from '../@commons/FlexContainer';
 import Text from '../@commons/Text';
 import { HorizontalLine, SidebarBackground, SidebarBox } from './styles';
@@ -71,7 +72,7 @@ const GroupMenu = () => {
       <HorizontalLine />
 
       <FlexContainer as="ol" $wFull $align="flex-start" $gap="16px">
-        {members?.map((member: UserData) => (
+        {members?.map((member: Worker) => (
           <li key={`${member.userName}${member.userId}`}>
             <Text>{member.userName}</Text>
           </li>

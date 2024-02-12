@@ -1,22 +1,14 @@
 import instance from 'apis/instance';
-import { TimeWorkerListData } from 'apis/types';
-import { strTimeProcessor } from 'utils/strTimeProcessor';
+import { WorkTimeWorkerList } from 'types/schedule';
 
-export const getDailyWorkers = async (variables: Variables): Promise<Response> => {
-  const response: Response = await instance.get(`/fixed/dailyWorkers/${variables.selectedDate}`);
-  const schedule = response.schedule.map((time: TimeWorkerListData) => ({
-    ...time,
-    startTime: strTimeProcessor(time.startTime),
-    endTime: strTimeProcessor(time.endTime),
-  }));
-
-  return { schedule };
+export const getDailyWorkers = (variables: Request): Promise<Response> => {
+  return instance.get(`/fixed/dailyWorkers/${variables.selectedDate}`);
 };
 
-interface Variables {
+interface Request {
   selectedDate: string;
 }
 
 interface Response {
-  schedule: TimeWorkerListData[];
+  schedule: WorkTimeWorkerList[];
 }

@@ -1,20 +1,26 @@
 import { useMutation } from '@tanstack/react-query';
 import { postRecommends } from 'apis/admin/application/close';
 import { convertPath } from 'apis/convertURI';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { selectedWeekAtom } from 'pages/SelectWeekPage/states';
-import { useState } from 'react';
+import { recommendScheduleAtom } from 'pages/admin/ApplicationClosePage/state';
 import { useNavigate } from 'react-router-dom';
 
 const useClose = (startWeekDate: string) => {
-  // 선택된 후보, 후보 선택시 상태 업데이트
-  const [candidate, setCandidate] = useState(0);
   const setSelectedWeek = useSetAtom(selectedWeekAtom);
+  const recommend = useAtomValue(recommendScheduleAtom);
+
   // 제출 클릭시 post 요청
   const navigate = useNavigate();
   const { mutate } = useMutation(
-    ['postRecommends'],
-    () => postRecommends({ startWeekDate: startWeekDate, selection: candidate + 1 }),
+    ['postRecommends', startWeekDate],
+    () =>
+      postRecommends({
+        startWeekDate: startWeekDate,
+        weeklyWorkerListWannaFix: recommend.map((daily) =>
+          daily.map((time) => ({ workTimeId: time.workTimeId, workerList: time.workerList })),
+        ),
+      }),
     {
       onSuccess: () => {
         navigate(convertPath('/'));
@@ -22,11 +28,12 @@ const useClose = (startWeekDate: string) => {
       },
     },
   );
+
   const submitHandler = () => {
     mutate();
   };
 
-  return { candidate, setCandidate, submitHandler };
+  return { submitHandler };
 };
 
 export default useClose;

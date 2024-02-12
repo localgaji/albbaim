@@ -5,13 +5,13 @@ import { dateAtom } from '../states';
 
 const DailyWorkers = (): JSX.Element => {
   const selectedDate = useAtomValue(dateAtom);
-  const { scheduleRes, isNotFixed } = useGetDailyWorkers(selectedDate.date, selectedDate.isFixed);
+  const { scheduleRes, hasFixed } = useGetDailyWorkers(selectedDate.date, selectedDate.hasFixed);
 
   if (selectedDate.date === '') {
     return <></>;
   }
 
-  if (!selectedDate.isFixed || isNotFixed) {
+  if (!selectedDate.hasFixed || !hasFixed) {
     return <NotFixedDateBox />;
   }
 

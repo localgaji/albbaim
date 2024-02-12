@@ -11,7 +11,7 @@ interface PostRequest {
 
 // 매장명 확인, (추가: 이미 소속된 그룹인지 여부)
 export const getGroupInfo = (variables: GetRequest): Promise<GetResponse> => {
-  return instance.get(`/workplace/invitation/information/${variables.invitationKey}`);
+  return instance.get(`/workplace/invitation/${variables.invitationKey}`);
 };
 
 interface GetRequest {

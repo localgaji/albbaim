@@ -1,22 +1,24 @@
-import { TimeData } from 'apis/types';
 import FlexContainer from 'components/@commons/FlexContainer';
 import Text from 'components/@commons/Text';
 import { CloseCircleButton } from 'components/@commons/icons/buttons';
 import useFormOnBlurUpdate from 'hooks/useFormOnBlurUpdate';
 import { ButtonContainer, InputTime, InputTitle } from 'pages/admin/ApplicationOpenPage/styles';
+import { useEffect } from 'react';
+import { WorkTime } from 'types/schedule';
 
 interface Props {
-  timeData: TimeData;
+  timeData: WorkTime;
   timeIndex: number;
-  updater: (id: string, value: string, index: number) => void;
+  updater: (newWorkTime: WorkTime, index: number) => void;
   deleteHandler: (i: number) => void;
 }
 
 export const OpenTimeInputs = ({ timeData, timeIndex, updater, deleteHandler }: Props) => {
-  const { val, onBlurHandler, onChangeHandler } = useFormOnBlurUpdate<TimeDataIndex>(
-    timeData as TimeDataIndex,
-    (value: string, id: string) => updater(value, id, timeIndex),
-  );
+  const { val, final, onBlurHandler, onChangeHandler } = useFormOnBlurUpdate<WorkTime>(timeData);
+
+  useEffect(() => {
+    updater(final, timeIndex);
+  }, [final]);
 
   return (
     <>
@@ -47,7 +49,3 @@ export const OpenTimeInputs = ({ timeData, timeIndex, updater, deleteHandler }: 
     </>
   );
 };
-
-interface TimeDataIndex extends TimeData {
-  [index: string]: string;
-}

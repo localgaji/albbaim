@@ -35,7 +35,7 @@ const MainByRoles = () => {
     case 'ALBA_NO_GROUP':
       return <AlbaNoGroupPage />;
     case 'ALBA':
-      return <SchedulePage isAdmin={false} />;
+      return <SchedulePage />;
     default:
       return <></>;
   }

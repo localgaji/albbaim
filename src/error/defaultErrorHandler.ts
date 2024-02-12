@@ -1,18 +1,15 @@
 import { convertPath } from 'apis/convertURI';
-import { ErrorData } from 'apis/types';
 import { stringErrorCode } from 'error/errorCode';
-import { loginDatahandlers } from 'utils/loginDatahandlers';
+import { ErrorData } from 'error/type';
 
 const redirect = (url: string) => {
   window.location.href = url;
 };
 
 export const defaultErrorHandler = (error: ErrorData) => {
-  console.log('defaultErrorHandler', error);
-
   if (error.response === undefined) {
     alert('서버 오류');
-    loginDatahandlers.removeLoginData();
+    // loginDatahandlers.removeLoginData();
     return;
   }
 
@@ -58,8 +55,8 @@ export const defaultErrorHandler = (error: ErrorData) => {
     default:
       // 처리 불가능 에러
       alert('서버 오류');
-      loginDatahandlers.removeLoginData();
-      redirect(convertPath('/'));
+      // loginDatahandlers.removeLoginData();
+      // redirect(convertPath('/'));
       return;
   }
 };

@@ -1,5 +1,5 @@
 import instance from 'apis/instance';
-import { WeekStatusData, WeekStatusTypes } from 'apis/types';
+import { WeekStatus, WeekStatusTypes } from 'types/schedule';
 import { dateToString } from 'utils/dateToString';
 
 export const getWeekProgress = async ({ year, month }: { year: number; month: number }): Promise<Return> => {
@@ -16,7 +16,7 @@ export const getWeekProgress = async ({ year, month }: { year: number; month: nu
   }
 
   // 2. 2차원 빈 달력
-  const table: WeekStatusData[] = [];
+  const table: WeekStatus[] = [];
   for (let i = 0; i < 6; i++) {
     // 해당 주 날짜 리스트 생성
     const weekly = [];
@@ -32,7 +32,7 @@ export const getWeekProgress = async ({ year, month }: { year: number; month: nu
     }
 
     // 주 상태 객체 생성 (기본값 : 모집마감)
-    const weekObject: WeekStatusData = {
+    const weekObject: WeekStatus = {
       weekStatus: 'closed',
       dates: weekly,
     };
@@ -50,7 +50,7 @@ export const getWeekProgress = async ({ year, month }: { year: number; month: nu
 };
 
 interface Return {
-  table: WeekStatusData[];
+  table: WeekStatus[];
 }
 
 interface Response {

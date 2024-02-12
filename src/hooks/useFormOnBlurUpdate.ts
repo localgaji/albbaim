@@ -4,29 +4,20 @@ interface StringIndex {
   [index: string]: string;
 }
 
-const useFormOnBlurUpdate = <T extends StringIndex>(
-  initial: T,
-  afterBlurUpdater: (value: string, id: string) => void,
-  validator?: (prev: string) => string,
-) => {
+const useFormOnBlurUpdate = <T extends StringIndex>(initial: T, validator: (prev: string) => string = (e) => e) => {
   const [val, setVal] = useState(initial);
+  const [final, setFinal] = useState(initial);
 
   const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    setVal((prev) => {
-      if (validator === undefined) {
-        return prev;
-      }
-      return { ...prev, [event.target.id]: validator(event.target.value) };
-    });
-
-    afterBlurUpdater(event.target.value, event.target.id);
+    setVal((prev) => ({ ...prev, [event.target.id]: validator(event.target.value) }));
+    setFinal((prev) => ({ ...prev, [event.target.id]: validator(event.target.value) }));
   };
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVal((prev) => ({ ...prev, [event.target.id]: event.target.value }));
   };
 
-  return { val, onBlurHandler, onChangeHandler };
+  return { val, final, onBlurHandler, onChangeHandler };
 };
 
 export default useFormOnBlurUpdate;

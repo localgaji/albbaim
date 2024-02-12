@@ -3,40 +3,20 @@ import PageContainer from 'components/@commons/PageContainer';
 import CalenderOutter, { MonthData } from 'components/Calendar/CalenderOutter';
 import Loader from 'components/Suspenses/Loader';
 import Skeleton from 'components/Suspenses/Skeleton';
-import { useGetMyWorkplace } from 'hooks/useGetMyInfo';
-import { useAtom, useAtomValue } from 'jotai';
-import EmptyCalendar from 'pages/SchedulePage/CalendarSection/EmptyCalendar';
+import { useAtom } from 'jotai';
 import ScheduleCalendar from 'pages/SchedulePage/CalendarSection/ScheduleCalendar';
 import DailyWorkers from 'pages/SchedulePage/DailyWorkerSection/DailyWorkers';
-import Dropdown from 'pages/SchedulePage/HeaderSection/Dropdown';
-import TotalWorkTime from 'pages/SchedulePage/HeaderSection/TotalWorkTime';
 import { Suspense } from 'react';
-import { memberAtom, monthAtom } from './states';
+import { monthAtom } from './states';
 
-const SchedulePage = ({ isAdmin }: { isAdmin: Boolean }): JSX.Element => {
-  const { members } = useGetMyWorkplace();
-  const nowMember = useAtomValue(memberAtom);
-
+const SchedulePage = (): JSX.Element => {
   return (
-    <PageContainer justify="start" padding="0 20px" maxWidth="600px">
-      <FlexContainer $direction="row" $wFull $justify="start" $height="48px" $gap="0">
-        <FlexContainer $wFull $align="flex-start">
-          {(nowMember.userId !== 0 || !isAdmin) && <TotalWorkTime />}
-        </FlexContainer>
-        <FlexContainer $hFull $wFull $position="relative">
-          {isAdmin && <Dropdown members={members || []} />}
-        </FlexContainer>
-      </FlexContainer>
-
+    <PageContainer justify="start" padding="20px" maxWidth="600px">
       <FlexContainer $wFull $gap="8px">
         <MonthSelector />
-        {nowMember.userId !== 0 || !isAdmin ? (
-          <Suspense fallback={<Skeleton aspectRatio="1.12" isDeffered />}>
-            <ScheduleCalendar />
-          </Suspense>
-        ) : (
-          <EmptyCalendar />
-        )}
+        <Suspense fallback={<Skeleton aspectRatio="1.12" isDeffered />}>
+          <ScheduleCalendar />
+        </Suspense>
       </FlexContainer>
 
       <FlexContainer $wFull>

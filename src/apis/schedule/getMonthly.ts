@@ -1,28 +1,17 @@
 import instance from 'apis/instance';
-import { DailyWorkTimeData, TotalWorkedTimeData } from 'apis/types';
+import { DailySchedule, TotalWorkedTimeData } from 'types/schedule';
 import { timeColors } from 'utils/colors';
 import { dateToString } from 'utils/dateToString';
 import { loginDatahandlers } from 'utils/loginDatahandlers';
 
-export const getMonthly = async ({ year, month, userId }: Param): Promise<Return> => {
-  const strMonth = String(month + 1).padStart(2, '0');
+export const getMonthly = ({ year, month, userId }: Param): Promise<Response> => {
   const isAdmin = loginDatahandlers.getLoginData().isAdmin;
-
-  const response: Response = await instance.get(`/fixed/monthly/${year}/${strMonth}/${isAdmin ? userId : ''}`);
-  const calendar = to2Dimension({ year, month, monthly: response.schedule });
-
-  return { table: calendar.table, totalTime: response.work_summary, badgeColor: calendar.badgeColor };
+  return instance.get(`/fixed/monthly/${year}/${month + 1}${isAdmin ? '/' + userId : ''}`);
 };
 
-interface Return {
-  table: DailyWorkTimeData[][];
-  totalTime: TotalWorkedTimeData;
-  badgeColor: { [index: string]: string };
-}
-
 interface Response {
-  schedule: DailyWorkTimeData[];
-  work_summary: TotalWorkedTimeData;
+  monthly: DailySchedule[][];
+  totalWorkTime: TotalWorkedTimeData;
 }
 
 interface Param {
@@ -31,15 +20,7 @@ interface Param {
   userId?: number;
 }
 
-export const to2Dimension = ({
-  year,
-  month,
-  monthly,
-}: {
-  year: number;
-  month: number;
-  monthly: DailyWorkTimeData[];
-}) => {
+export const to2Dimension = ({ year, month }: { year: number; month: number }): { schedule: DailySchedule[][] } => {
   let firstMonday = 1;
 
   // 1. 첫번째 월요일 찾기
@@ -51,7 +32,7 @@ export const to2Dimension = ({
   }
 
   // 2. 2차원 빈 달력
-  const table = [];
+  const schedule = [];
   const allWorkTimes: Set<string> = new Set();
   for (let i = 0; i < 6; i++) {
     const weekly = [];
@@ -64,20 +45,13 @@ export const to2Dimension = ({
     for (let j = startWeekDate; j < startWeekDate + 7; j++) {
       const dateString = dateToString(new Date(year, month, j));
 
-      const objectDaily = monthly.find((e: { date: string }) => e.date === dateString);
-      const emptyDaily = {
+      weekly.push({
         date: dateString,
-        workTime: null,
-      };
-
-      weekly.push(!!objectDaily ? objectDaily : emptyDaily);
-
-      if (objectDaily === undefined || objectDaily.workTime === null) continue;
-      for (let title of objectDaily.workTime) {
-        allWorkTimes.add(title);
-      }
+        hasFixed: false,
+        workTimes: [],
+      });
     }
-    table.push(weekly);
+    schedule.push(weekly);
   }
 
   const badgeColor: { [index: string]: string } = {};
@@ -85,5 +59,5 @@ export const to2Dimension = ({
   allWorkTimesArr.map((e, i) => {
     badgeColor[e] = timeColors(i);
   });
-  return { table, badgeColor };
+  return { schedule };
 };

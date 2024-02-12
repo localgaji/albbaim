@@ -1,13 +1,15 @@
 import instance from 'apis/instance';
-import { TimeWorkerListData } from 'apis/types';
+import { WorkTimeWorkerListRecommended, WorkTimeWorkerListWannaFix } from 'types/schedule';
 
 export const postRecommends = (variables: PostRequest) => {
-  return instance.post(`/fixed/${variables.startWeekDate}/${variables.selection}`);
+  return instance.post(`/fixed/${variables.startWeekDate}`, {
+    weeklyWorkerListWannaFix: variables.weeklyWorkerListWannaFix,
+  });
 };
 
 interface PostRequest {
   startWeekDate: string;
-  selection: number;
+  weeklyWorkerListWannaFix: WorkTimeWorkerListWannaFix[][];
 }
 
 export const getRecommends = (variables: GetRequest): Promise<GetResponse> => {
@@ -19,5 +21,5 @@ interface GetRequest {
 }
 
 interface GetResponse {
-  recommends: TimeWorkerListData[][][];
+  recommends: WorkTimeWorkerListRecommended[][];
 }
